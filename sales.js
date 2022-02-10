@@ -43,8 +43,17 @@ const assignCalculatedSalesData = function (salesTaxRates, companySalesData) {
   for (const company in companySalesData) {
     let companyName = companySalesData[company]['name'];
     let taxRate = salesTaxRates[companySalesData[company]['province']];
+    let salesData = companySalesData[company]['sales'];
 
-    processedSalesData[companyName] = calculateCompanySalesData(taxRate, [100, 200, 400]);
+    if (!processedSalesData[companyName]) {
+      processedSalesData[companyName] = calculateCompanySalesData(taxRate, salesData);
+    }
+    else {
+      let addition = calculateCompanySalesData(taxRate, salesData);
+      processedSalesData[companyName]['totalTaxes'] += addition['totalTaxes'];
+      processedSalesData[companyName]['totalSales'] += addition['totalSales'];
+    }
+
   }
 
   return processedSalesData;
