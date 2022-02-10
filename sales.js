@@ -22,7 +22,7 @@ const companySalesData = [
   }
 ];
 
-const calculateCompanySalesData = function (taxRate, salesData) {
+const calculateCompanySalesData = function(taxRate, salesData) {
 
   let totalTaxes = 0;
   let totalSales = 0;
@@ -34,9 +34,9 @@ const calculateCompanySalesData = function (taxRate, salesData) {
 
   return { 'totalTaxes': totalTaxes, 'totalSales': totalSales };
 
-}
+};
 
-const assignCalculatedSalesData = function (salesTaxRates, companySalesData) {
+const assignCalculatedSalesData = function(salesTaxRates, companySalesData) {
 
   const processedSalesData = {};
 
@@ -47,17 +47,15 @@ const assignCalculatedSalesData = function (salesTaxRates, companySalesData) {
 
     if (!processedSalesData[companyName]) {
       processedSalesData[companyName] = calculateCompanySalesData(taxRate, salesData);
-    }
-    else {
+    } else {
       let addition = calculateCompanySalesData(taxRate, salesData);
       processedSalesData[companyName]['totalTaxes'] += addition['totalTaxes'];
       processedSalesData[companyName]['totalSales'] += addition['totalSales'];
     }
-
   }
 
   return processedSalesData;
 
-}
+};
 
 console.log(assignCalculatedSalesData(salesTaxRates, companySalesData));
